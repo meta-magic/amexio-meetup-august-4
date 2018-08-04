@@ -1,0 +1,22 @@
+
+<amexio-nav  [title]="'Amexio Demo'">
+    <amexio-nav-item position-right
+         [type]="'menu'"
+         [title]="'Menu Options'"
+         (onNavItemClick)="onMenuClick($event)"
+         [data]="data"
+         [icon]="'icon'">
+    </amexio-nav-item>
+    <amexio-nav-item position-right
+         [type]="'button'"
+         [title]="'logout'"
+         (onNavItemClick)="onLogoutClick()"
+         [icon]="'icon'">
+    </amexio-nav-item>
+</amexio-nav>
+
+<div style="padding-top: 80px; height: 100%; background-color: white;" >
+    <amexio-box padding="true">
+        <router-outlet></router-outlet>
+    </amexio-box>
+</div>

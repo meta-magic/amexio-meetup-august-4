@@ -1,0 +1,140 @@
+
+<amexio-tab-view #amexiotab>
+     <amexio-tab title="Employee List" [active]="true">
+            <amexio-datagrid
+            title="Employee List"
+            [http-method]="'get'"
+            [http-url]="'assets/employee.json'"
+            [data-reader]="'data'"
+            [page-size] = "5">
+            <amexio-data-table-column [data-index]="'firstname'"
+                [data-type]="'string'" [hidden]="false"
+                [text]="'First Name'">
+            </amexio-data-table-column>
+            <amexio-data-table-column [data-index]="'lastname'"
+                [data-type]="'string'" [hidden]="false"
+                [text]="'last Name'">
+            </amexio-data-table-column>
+            <amexio-data-table-column [data-index]="'email'"
+                [data-type]="'string'" [hidden]="false"
+                [text]="'Email'">
+            </amexio-data-table-column>
+            <amexio-data-table-column [data-index]="'age'"
+                [data-type]="'number'" [hidden]="false"
+                [text]="'Age'">
+            </amexio-data-table-column>
+            <amexio-data-table-column 
+                    [data-index]="'dataIndex'"
+                    [data-type]="'string'" [hidden]="false"
+                    [text]="'Name'">
+                <ng-template #amexioBodyTmpl let-column let-row="row">
+                    <amexio-row>
+                        <amexio-button
+                            [label]="'edit'"
+                            [size]="'small'"
+                            [type]="'theme-backgroundcolor'"
+                            [tooltip]="'Edit Record'" 
+                            (onClick)="onEdit(row,amexiotab)">
+                       </amexio-button>
+                       <amexio-button
+                            [label]="'Travel Request'"
+                            [size]="'small'"
+                            [type]="'theme-color'"
+                            [tooltip]="'Edit Record'" 
+                            (onClick)="raiseTravelRequest(row,amexiotab)">
+                        </amexio-button>
+
+                    </amexio-row>
+                </ng-template>
+            </amexio-data-table-column>
+
+        </amexio-datagrid>
+        
+
+     </amexio-tab>
+     <amexio-tab title="Employee Form">
+        
+            <amexio-form
+            [header]="true"
+            [form-name]="'validationform'">
+                <amexio-form-header>
+                    Employee Registration Form
+                </amexio-form-header>
+                <amexio-form-body>
+                    <amexio-row>
+                        <amexio-column [size] =6 >
+                                <amexio-text-input
+                                        [(ngModel)]="employee.firstname"
+                                        field-label="First Name"
+                                        name="firstName"
+                                        place-holder="Please enter first name"
+                                        error-msg = "Please enter valid data"
+                                        icon-feedback="true">
+                                </amexio-text-input>
+                            </amexio-column>
+                        <amexio-column [size] =6 >
+                            <amexio-text-input
+                                [(ngModel)]="employee.lastname"
+                                 field-label="Last Name"
+                                 name="lastName"
+                                 place-holder="Please enter last name"
+                                 icon-feedback="true">
+                            </amexio-text-input>
+                        </amexio-column>
+                    </amexio-row>
+                    <amexio-row>
+                        <amexio-column [size] =6 >
+                            <amexio-email-input
+                                 [(ngModel)]="employee.email"
+                                 [field-label]="'Email'"
+                                 name ="email"
+                                 [place-holder]="'Please enter valid email'"
+                                 [allow-blank]="false"
+                                 [error-msg] ="'Enter valid error message'"
+                                 [enable-popover]="true"
+                                 [icon-feedback]="true">
+                            </amexio-email-input>
+                        </amexio-column>
+                        <amexio-column [size] =6 >
+                            <amexio-number-input
+                                 [(ngModel)]="employee.age"
+                                 [field-label]="'Age'"
+                                 [place-holder]="'Please enter valid age'">
+                            </amexio-number-input>
+                        </amexio-column>
+                    </amexio-row>
+                    <amexio-row>
+                        <amexio-column [size] =6 >
+                            <amexio-dropdown
+                                 [place-holder]="'Select Country'"
+                                 name="name"
+                                 [data-reader]="'data'"
+                                 [field-label]="'Country'"
+                                 [http-url]="'assets/country.json'"
+                                 [http-method]="'get'"
+                                 [display-field]="'countryName'"
+                                 [value-field]="'countryCode1'">
+                            </amexio-dropdown>
+                        </amexio-column>
+                    </amexio-row>
+                </amexio-form-body>
+                <amexio-form-action>
+                    
+                    <amexio-button
+                         [label]="'Save'"
+                         [type]="'theme-color'"
+                         [tooltip]="'toolTip'" 
+                         [form-bind]="'validationform'"
+                         (onClick)="saveForm()">
+                    </amexio-button>
+        
+                </amexio-form-action>
+        </amexio-form>        
+
+     </amexio-tab>
+</amexio-tab-view>
+
+<br>
+
+
+{{employee | json}}
